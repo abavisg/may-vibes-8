@@ -4,6 +4,7 @@ import 'package:mobile/services/api_service.dart';
 import 'package:mobile/widgets/thought_form.dart';
 import 'dart:developer'; // Import for logging
 import 'package:mobile/screens/journal_screen.dart'; // Import for navigation
+import 'package:mobile/screens/sos_screen.dart'; // Import for SOS screen
 
 class ReframeScreen extends StatefulWidget {
   const ReframeScreen({super.key});
@@ -235,6 +236,16 @@ class ReframeScreenState extends State<ReframeScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const JournalScreen()),
+              );
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.crisis_alert), // SOS icon
+            onPressed: () {
+              // Navigate to the SosScreen
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SosScreen()),
               );
             },
           ),

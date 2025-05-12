@@ -56,4 +56,18 @@ class ApiService {
       throw Exception('Failed to load journal entries: ${response.body}');
     }
   }
+
+  Future<String> fetchSosTechnique({String? feeling}) async {
+    String url = '$baseUrl/sos';
+    if (feeling != null && feeling.isNotEmpty) {
+      url += '?feeling=${Uri.encodeComponent(feeling)}';
+    }
+    final response = await http.get(Uri.parse(url));
+
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      throw Exception('Failed to fetch SOS technique: ${response.body}');
+    }
+  }
 }

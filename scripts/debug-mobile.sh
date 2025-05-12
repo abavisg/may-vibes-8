@@ -11,4 +11,4 @@ cd mindflip/mobile || {
 
 # Run the Flutter app in debug mode
 echo "Running Flutter app..."
-flutter run -d XXX 
+flutter run -d 00008130-001E38641ED3803A 

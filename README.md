@@ -57,9 +57,11 @@ The mobile app is located in the `mindflip/mobile` directory. It's structured in
 
 *   `lib/models/`: Data models (`ReframeResponse`, `JournalEntry`).
 *   `lib/services/`: API communication (`ApiService`).
-*   `lib/widgets/`: Reusable UI components (`ThoughtForm`).
-*   `lib/screens/`: Page-level UI (`ReframeScreen`).
+*   `lib/widgets/`: Reusable UI components (`ThoughtForm`, `TimelineGraph`).
+*   `lib/screens/`: Page-level UI (`ReframeScreen`, `JournalScreen`, `SosScreen`).
 *   `lib/main.dart`: App entry point.
+
+The `ReframeScreen` now includes an icon in the AppBar to navigate to the `SosScreen` for immediate coping techniques, and another icon to navigate to the `JournalScreen` to view past entries.
 
 You'll need a running instance of the backend for the mobile app to function. Follow the Backend Setup and Running instructions first.
 
@@ -137,6 +139,15 @@ Base URL: https://localhost:8000 (or https://10.0.2.2:8000 on Android emulator)
     },
     // ... more entries
   ]
+  ```
+
+### Get SOS Technique
+`GET /sos`
+- Query parameter (optional): `feeling=<current feeling>` (e.g., `/sos?feeling=anxious`)
+- Returns: a plain text string with an immediate coping technique.
+- Example:
+  ```text
+  Take a deep breath and count to four as you inhale, hold for four, and exhale for four.
   ```
 
 ## License
