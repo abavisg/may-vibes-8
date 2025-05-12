@@ -1,11 +1,42 @@
 import 'dart:convert';
+import 'dart:io'; // Import for HttpClient
 import 'package:http/http.dart' as http;
+import 'package:http/io_client.dart'; // Import for IOCient
+
+class DevelopmentHttpClient extends http.BaseClient {
+  final IOClient _ioClient;
+  final String _trustedHost;
+
+  DevelopmentHttpClient(this._trustedHost)
+    : _ioClient = IOClient(
+        HttpClient()
+          ..badCertificateCallback =
+              (X509Certificate cert, String host, int port) =>
+                  host == _trustedHost,
+      );
+
+  @override
+  Future<http.StreamedResponse> send(http.BaseRequest request) {
+    return _ioClient.send(request);
+  }
+}
 
 class ApiService {
-  final String baseUrl = 'https://localhost:8000';
+  final String baseUrl = 'https://192.168.1.75:8000';
+  late final http.Client _httpClient;
+
+  ApiService() {
+    // Use custom client for development to allow self-signed certs
+    _httpClient = DevelopmentHttpClient(Uri.parse(baseUrl).host);
+  }
+
+  // Dispose the client when the service is no longer needed
+  void dispose() {
+    _httpClient.close();
+  }
 
   Future<List<String>> fetchCategories() async {
-    final response = await http.get(Uri.parse('$baseUrl/categories'));
+    final response = await _httpClient.get(Uri.parse('$baseUrl/categories'));
     if (response.statusCode == 200) {
       return List<String>.from(json.decode(response.body));
     } else {
@@ -14,7 +45,7 @@ class ApiService {
   }
 
   Future<Map<String, dynamic>> reframeThought(String thought) async {
-    final response = await http.post(
+    final response = await _httpClient.post(
       Uri.parse('$baseUrl/reframe'),
       headers: {'Content-Type': 'application/json'},
       body: json.encode({'thought': thought}),
@@ -31,7 +62,7 @@ class ApiService {
     String suggestion,
     String tag,
   ) async {
-    final response = await http.post(
+    final response = await _httpClient.post(
       Uri.parse('$baseUrl/entries'),
       headers: {'Content-Type': 'application/json'},
       body: json.encode({
@@ -48,7 +79,7 @@ class ApiService {
   }
 
   Future<List<dynamic>> getEntries() async {
-    final response = await http.get(Uri.parse('$baseUrl/entries'));
+    final response = await _httpClient.get(Uri.parse('$baseUrl/entries'));
     if (response.statusCode == 200) {
       // The backend returns a list of dictionaries (JSON objects)
       return json.decode(response.body);
@@ -62,7 +93,7 @@ class ApiService {
     if (feeling != null && feeling.isNotEmpty) {
       url += '?feeling=${Uri.encodeComponent(feeling)}';
     }
-    final response = await http.get(Uri.parse(url));
+    final response = await _httpClient.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
       return response.body;

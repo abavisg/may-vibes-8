@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/models/journal_entry.dart';
+import 'package:mindflip/models/journal_entry.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 class TimelineGraph extends StatelessWidget {

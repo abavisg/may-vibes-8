@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/services/api_service.dart';
+import 'package:mindflip/services/api_service.dart';
 
 class SosScreen extends StatefulWidget {
   const SosScreen({super.key});

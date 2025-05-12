@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/models/journal_entry.dart';
-import 'package:mobile/services/api_service.dart';
+import 'package:mindflip/models/journal_entry.dart';
+import 'package:mindflip/services/api_service.dart';
 
 class JournalScreen extends StatefulWidget {
   const JournalScreen({super.key});

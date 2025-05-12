@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/screens/reframe_screen.dart';
+import 'package:mindflip/screens/reframe_screen.dart';
 
 void main() {
   runApp(const MindFlipApp());

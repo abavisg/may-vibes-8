@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:mobile/main.dart'; // Assuming MindFlipApp is in main.dart
+import 'package:mindflip/main.dart'; // Assuming MindFlipApp is in main.dart
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {

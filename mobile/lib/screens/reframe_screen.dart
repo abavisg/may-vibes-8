@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/models/reframe_response.dart';
-import 'package:mobile/services/api_service.dart';
-import 'package:mobile/widgets/thought_form.dart';
+import 'package:mindflip/models/reframe_response.dart';
+import 'package:mindflip/services/api_service.dart';
+import 'package:mindflip/widgets/thought_form.dart';
 import 'dart:developer'; // Import for logging
-import 'package:mobile/screens/journal_screen.dart'; // Import for navigation
-import 'package:mobile/screens/sos_screen.dart'; // Import for SOS screen
+import 'package:mindflip/screens/journal_screen.dart'; // Import for navigation
+import 'package:mindflip/screens/sos_screen.dart'; // Import for SOS screen
 
 class ReframeScreen extends StatefulWidget {
   const ReframeScreen({super.key});
