@@ -1,14 +1,13 @@
+from dotenv import load_dotenv, find_dotenv
+# Load environment variables from nearest .env file
+load_dotenv(find_dotenv())
 from fastapi import FastAPI
-from dotenv import load_dotenv
 import os
 from fastapi.responses import FileResponse, Response
 from routers.health import router as health_router
 from routers.reframe import router as reframe_router
 from routers.categories import router as categories_router
 from routers.journal import router as journal_router
-
-# Load environment variables
-load_dotenv()
 
 # Initialize FastAPI app
 app = FastAPI(

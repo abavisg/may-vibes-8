@@ -21,12 +21,14 @@ def save_entry(original_thought: str, suggestion: str, tag: str) -> Dict[str, An
             "reframed_text": suggestion,
             "category": tag
         }
-        response = supabase.from_("entries").insert(payload).select("*").execute()
-        data = response.data
-        if data and isinstance(data, list):
-            return data[0]
+        # Perform the insert operation
+        response = supabase.from_("entries").insert(payload).execute()
+        
+        # Check if the response contains data
+        if response.data and isinstance(response.data, list):
+            return response.data[0]  # Return the first inserted row
         raise HTTPException(status_code=500, detail="Failed to save journal entry")
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e)) 
+        raise HTTPException(status_code=500, detail=str(e))

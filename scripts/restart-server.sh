@@ -8,6 +8,13 @@ echo "Starting MindFlip backend..."
 # Navigate to backend directory
 cd mindflip/backend || exit 1
 
+# Load environment variables from .env if present
+if [ -f ".env" ]; then
+  set -a
+  source .env
+  set +a
+fi
+
 # Prepare SSL certificate
 CERT_DIR="$(pwd)/certs"
 mkdir -p "$CERT_DIR"
