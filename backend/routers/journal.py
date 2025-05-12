@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
-from typing import Dict
+from typing import Dict, List
 from models import JournalEntryRequest, JournalEntryResponse
-from services.journal import save_entry
+from services.journal import save_entry, get_entries
 
 router = APIRouter()
 
@@ -14,4 +14,16 @@ async def create_entry(request: JournalEntryRequest) -> Dict:
         entry = save_entry(request.original_thought, request.suggestion, request.tag)
     except HTTPException as e:
         raise e
-    return entry 
+    return entry
+
+@router.get("/entries", response_model=List[JournalEntryResponse], tags=["Journal"])
+async def list_entries() -> List[Dict]:
+    """
+    Retrieve all journal entries.
+    """
+    try:
+        entries = get_entries()
+    except HTTPException as e:
+        raise e
+    # Convert dictionaries to JournalEntryResponse models for validation and typing
+    return [JournalEntryResponse(**entry) for entry in entries] 

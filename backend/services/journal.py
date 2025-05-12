@@ -1,7 +1,7 @@
 import os
 from supabase import create_client, Client
 from fastapi import HTTPException
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 # Initialize Supabase client
 SUPABASE_URL = os.getenv("SUPABASE_URL")
@@ -32,3 +32,24 @@ def save_entry(original_thought: str, suggestion: str, tag: str) -> Dict[str, An
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+def get_entries() -> List[Dict[str, Any]]:
+    """
+    Retrieve all journal entries from the Supabase 'entries' table.
+    Returns a list of dictionaries, each representing a row.
+    """
+    try:
+        # Fetch all rows from the 'entries' table
+        # Using .select('*') explicitly to get all columns
+        # and .execute() to run the query
+        response = supabase.from_("entries").select("*").execute()
+        data = response.data
+        if data and isinstance(data, list):
+            return data
+        # Return an empty list if no data is returned or data format is unexpected
+        return []
+    except Exception as e:
+        # Log the error or handle it as needed
+        print(f"Error fetching journal entries: {e}")
+        # Propagate a standard HTTPException for API consistency
+        raise HTTPException(status_code=500, detail="Failed to retrieve journal entries")

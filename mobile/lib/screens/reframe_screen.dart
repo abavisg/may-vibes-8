@@ -3,6 +3,7 @@ import 'package:mobile/models/reframe_response.dart';
 import 'package:mobile/services/api_service.dart';
 import 'package:mobile/widgets/thought_form.dart';
 import 'dart:developer'; // Import for logging
+import 'package:mobile/screens/journal_screen.dart'; // Import for navigation
 
 class ReframeScreen extends StatefulWidget {
   const ReframeScreen({super.key});
@@ -223,6 +224,23 @@ class ReframeScreenState extends State<ReframeScreen> {
       );
     }
 
-    return Scaffold(appBar: AppBar(title: Text('MindFlip')), body: content);
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('MindFlip'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.book_outlined), // Journal icon
+            onPressed: () {
+              // Navigate to the JournalScreen
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const JournalScreen()),
+              );
+            },
+          ),
+        ],
+      ),
+      body: content,
+    );
   }
 }

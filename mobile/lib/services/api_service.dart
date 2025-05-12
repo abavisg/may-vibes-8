@@ -26,7 +26,11 @@ class ApiService {
     }
   }
 
-  Future<Map<String, dynamic>> saveJournalEntry(String originalThought, String suggestion, String tag) async {
+  Future<Map<String, dynamic>> saveJournalEntry(
+    String originalThought,
+    String suggestion,
+    String tag,
+  ) async {
     final response = await http.post(
       Uri.parse('$baseUrl/entries'),
       headers: {'Content-Type': 'application/json'},
@@ -42,4 +46,14 @@ class ApiService {
       throw Exception('Failed to save journal entry: ${response.body}');
     }
   }
-} 
+
+  Future<List<dynamic>> getEntries() async {
+    final response = await http.get(Uri.parse('$baseUrl/entries'));
+    if (response.statusCode == 200) {
+      // The backend returns a list of dictionaries (JSON objects)
+      return json.decode(response.body);
+    } else {
+      throw Exception('Failed to load journal entries: ${response.body}');
+    }
+  }
+}

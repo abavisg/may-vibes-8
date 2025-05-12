@@ -122,6 +122,23 @@ Base URL: https://localhost:8000 (or https://10.0.2.2:8000 on Android emulator)
   }
   ```
 
+### List Journal Entries
+`GET /entries`
+- Returns: a JSON array of journal entries.
+- Example:
+  ```json
+  [
+    {
+      "id": 1,
+      "original_thought": "I always mess up",
+      "reframed_text": "Mistakes are opportunities to grow.",
+      "category": "Growth-Mindset",
+      "created_at": "2025-05-12T12:34:56.789Z"
+    },
+    // ... more entries
+  ]
+  ```
+
 ## License
 This project is licensed under the MIT License.
 
