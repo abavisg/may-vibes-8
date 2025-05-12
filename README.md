@@ -91,5 +91,26 @@ Base URL: https://localhost:8000 (or https://10.0.2.2:8000 on Android emulator)
   ]
   ```
 
+### Save Journal Entry
+`POST /entries`
+- Request body:
+  ```json
+  {
+    "original_thought": "I always mess up",
+    "suggestion": "Mistakes are opportunities to grow.",
+    "tag": "Growth-Mindset"
+  }
+  ```
+- Response body:
+  ```json
+  {
+    "id": 1,
+    "original_thought": "I always mess up",
+    "reframed_text": "Mistakes are opportunities to grow.",
+    "category": "Growth-Mindset",
+    "created_at": "2025-05-12T12:34:56.789Z"
+  }
+  ```
+
 ## License
 This project is licensed under the MIT License.
