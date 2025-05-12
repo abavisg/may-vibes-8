@@ -3,13 +3,13 @@ import 'package:mobile/models/journal_entry.dart';
 import 'package:mobile/services/api_service.dart';
 
 class JournalScreen extends StatefulWidget {
-  const JournalScreen({Key? key}) : super(key: key);
+  const JournalScreen({super.key});
 
   @override
-  _JournalScreenState createState() => _JournalScreenState();
+  JournalScreenState createState() => JournalScreenState();
 }
 
-class _JournalScreenState extends State<JournalScreen> {
+class JournalScreenState extends State<JournalScreen> {
   final ApiService _apiService = ApiService();
   List<JournalEntry> _entries = [];
   bool _isLoading = false;
