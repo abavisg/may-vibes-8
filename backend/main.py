@@ -1,8 +1,9 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
-from typing import List
 from dotenv import load_dotenv
 import os
+from fastapi.responses import FileResponse, Response
+from routers.health import router as health_router
+from routers.reframe import router as reframe_router
 
 # Load environment variables
 load_dotenv()
@@ -14,31 +15,15 @@ app = FastAPI(
     version="0.1.0"
 )
 
-# Pydantic models
-class ReframeRequest(BaseModel):
-    thought: str
+# Include modular routers
+app.include_router(health_router)
+app.include_router(reframe_router)
 
-class ReframeResponse(BaseModel):
-    suggestions: List[str]
-    tag: str
-
-# Health check endpoint
-@app.get("/", tags=["Health"])
-async def root():
-    return {"message": "MindFlip backend is running."}
-
-# Thought reframing endpoint
-@app.post("/reframe", response_model=ReframeResponse, tags=["Reframe"])
-async def reframe(request: ReframeRequest):
-    """
-    Receive a negative thought and return 3 positive reframe suggestions and an auto-generated tag.
-    """
-    # TODO: Integrate with Ollama LLM via local API or subprocess
-    # For now, return stubbed suggestions
-    suggestions = [
-        f"Positive reframe 1 for: {request.thought}",
-        f"Positive reframe 2 for: {request.thought}",
-        f"Positive reframe 3 for: {request.thought}",
-    ]
-    tag = "Stub-Tag"
-    return ReframeResponse(suggestions=suggestions, tag=tag) 
+# Favicon endpoint to avoid 404s
+@app.get("/favicon.ico", include_in_schema=False)
+async def favicon():
+    # Path to favicon in static directory
+    path = os.path.join(os.path.dirname(__file__), "static", "favicon.ico")
+    if os.path.exists(path):
+        return FileResponse(path)
+    return Response(status_code=204) 
