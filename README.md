@@ -53,6 +53,16 @@ flutter pub get
 flutter run
 ```
 
+The mobile app is located in the `mindflip/mobile` directory. It's structured into:
+
+*   `lib/models/`: Data models (`ReframeResponse`, `JournalEntry`).
+*   `lib/services/`: API communication (`ApiService`).
+*   `lib/widgets/`: Reusable UI components (`ThoughtForm`).
+*   `lib/screens/`: Page-level UI (`ReframeScreen`).
+*   `lib/main.dart`: App entry point.
+
+You'll need a running instance of the backend for the mobile app to function. Follow the Backend Setup and Running instructions first.
+
 ## API Endpoints
 
 Base URL: https://localhost:8000 (or https://10.0.2.2:8000 on Android emulator)
