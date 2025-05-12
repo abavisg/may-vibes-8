@@ -3,6 +3,7 @@ import requests
 import json
 from fastapi import HTTPException
 from typing import Tuple, List
+from services.categories import get_categories
 
 
 def reframe_thought(thought: str) -> Tuple[List[str], str]:
@@ -14,12 +15,16 @@ def reframe_thought(thought: str) -> Tuple[List[str], str]:
     model = os.getenv("OLLAMA_MODEL")
     if not model:
         raise HTTPException(status_code=500, detail="OLLAMA_MODEL not configured")
+    # Incorporate fixed categories into the prompt
+    categories = get_categories()
+    categories_str = ", ".join(categories)
     system_prompt = {
         "role": "system",
         "content": (
-            "You are a compassionate therapist. "
-            "When given a negative thought, provide three concise positive reframes under 'suggestions' "
-            "and a one-word or short 'tag' summarizing the theme. Respond only with valid JSON."
+            f"You are a compassionate therapist. "
+            f"When given a negative thought, provide three concise positive reframes under 'suggestions' "
+            f"and choose one 'tag' from the following categories: {categories_str}. "
+            f"Respond only with valid JSON using keys 'suggestions' and 'tag'."
         )
     }
     user_prompt = {"role": "user", "content": f"Thought: \"{thought}\""}

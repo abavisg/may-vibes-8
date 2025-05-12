@@ -75,5 +75,21 @@ Base URL: https://localhost:8000 (or https://10.0.2.2:8000 on Android emulator)
   }
   ```
 
+### List Categories
+`GET /categories`
+- Returns: a JSON array of category names. Example:
+  ```json
+  [
+    "Self-Doubt",
+    "Catastrophizing",
+    "Comparison",
+    "Regret",
+    "Control",
+    "Negativity",
+    "Anxiety",
+    "Perfectionism"
+  ]
+  ```
+
 ## License
 This project is licensed under the MIT License.
